@@ -50,6 +50,7 @@ table += '<div class="grid-item"><center> <p style="color:black;font-size:20px;p
 var it = items[i];
 table +=  items[i].name + '</strong></p></center>';
 var x=items[i].pipelines;
+table += os.environ['apigatewayid'];
 for(var j=0 ; j<x.length;j++)
 {
     if(x[j].status=="Succeeded")
