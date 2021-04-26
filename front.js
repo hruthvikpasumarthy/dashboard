@@ -1,6 +1,5 @@
 async function add(items){
     $(document).ready(function () {
-    
 var table = '<div class="grid-container">';
 for (var i = 0; i < items.length; i++) {
 table += '<div class="grid-item"><center> <p style="color:black;font-size:20px;padding-left: 5px;"><strong>';
@@ -60,6 +59,9 @@ $('div').html(table);
         // instantiate a headers object
         var myHeaders = new Headers();
         // add content type header to object
+        id1 = process.env.id;
+        alert(id1);
+        console.log(id1);
         myHeaders.append("Content-Type", "application/json");
         // using built in JSON utility package turn object to string and store in a variable
         var raw = JSON.stringify({"asset":asset});
