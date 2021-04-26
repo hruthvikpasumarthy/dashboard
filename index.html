@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Code PipeLines</title>
+    <title>CodePipeLines</title>
     <!-- Add some CSS to change client UI -->
     <style>
     .space{
@@ -40,228 +40,27 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-    async function add(items){
-        $(document).ready(function () {
-        
-    var table = '<div class="grid-container">';
-for (var i = 0; i < items.length; i++) {
-table += '<div class="grid-item"><center> <p style="color:black;font-size:20px;padding-left: 5px;"><strong>';
-var it = items[i];
-	table += os.environ['apigatewayid'];
-table +=  items[i].name + '</strong></p></center>';
-var x=items[i].pipelines;
-for(var j=0 ; j<x.length;j++)
-{
-    if(x[j].status=="Succeeded")
-    {
-      table +='<div style="overflow: hidden;background-color:lightgreen;border: 2px solid white;font-size :13px;">'
-      table += '<p style="margin : 0;padding-left: 5px;float: left;"><strong>' + x[j].stages+ ' </strong> </p>';
-      table += '<p style="margin : 0;padding-left: 5px;float: right;"><strong>' + x[j].time+ '</strong> </p>';
-      table +='</div>'
-    }
-    if(x[j].status=="Failed")
-    {
-      table +='<div style="overflow: hidden;background-color:orangered;border: 2px solid white;font-size :13px;">'
-      table += '<p style="margin : 0;padding-left: 5px;float: left;"><strong>' + x[j].stages+ ' </strong> </p>';
-      table += '<p style="margin : 0;padding-left: 5px;float: right;"><strong>' + x[j].time+ '</strong> </p>';
-      table +='</div>'
-    }
-    if(x[j].status=="Didn't Execute")
-    {
-      table +='<div style="overflow: hidden;background-color:grey;border: 2px solid white;font-size :13px;">'
-      table += '<p style="margin : 0;padding-left: 5px;float: left;"><strong>' + x[j].stages+ ' </strong> </p>';
-      table += '<p style="margin : 0;padding-left: 5px;float: right;"><strong>' + x[j].time+ '</strong> </p>';
-      table +='</div>'
-    }
-    if(x[j].status=="Abandoned")
-    {
-      table +='<div style="overflow: hidden;background-color:lightsalmon;border: 2px solid white;font-size :13px;">'
-      table += '<p style="margin : 0;padding-left: 5px;float: left;"><strong>' + x[j].stages+ ' </strong> </p>';
-      table += '<p style="margin : 0;padding-left: 5px;float: right;"><strong>' + x[j].time+ '</strong> </p>';
-      table +='</div>'
-    }
-    if(x[j].status=="InProgress")
-    {
-      table +='<div style="overflow: hidden;background-color:rgb(72, 115, 141);border: 2px solid white;font-size :13px;">'
-      table += '<p style="margin : 0;padding-left: 5px;float: left;"><strong>' + x[j].stages+ ' </strong> </p>';
-      table += '<p style="margin : 0;padding-left: 5px;float: right;"><strong>' + x[j].time+ '</strong> </p>';
-      table +='</div>'
-    }
-}
-table +='<br> </div>'
-}
+    <script src="front.js"> </script>
 
-table += '</div>';
-
-$('div').html(table);
-
-});
-
-    }
-        // define the callAPI function that takes a first name and last name as parameters
-        async function callAPI(asset,service,type){
-            // instantiate a headers object
-            var myHeaders = new Headers();
-            // add content type header to object
-            myHeaders.append("Content-Type", "application/json");
-            // using built in JSON utility package turn object to string and store in a variable
-            var raw = JSON.stringify({"asset":asset});
-            // create a JSON object with parameters for API call and store in a variable
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-            if(document.getElementById('asset').value=="" && document.getElementById('service').value=="" && document.getElementById('type').value=="All" ){
-                let response = await fetch("https://udv79465qa.execute-api.us-east-1.amazonaws.com/dev/pipeline?type="+"All");
-                let result= await response.text();
-                let items= await JSON.parse(result).body;
-                let item=JSON.parse(items);
-                if (item['msg']=="No pipelines found for these filters")
-                {
-                    var a='<p style="color:white;font-size:30px">'+"No pipelines found for these filters"+'</p>'
-                    $('div').html(a);
-                }
-                else{
-                
-               add(item)
-                }	
-               
-                //alert(res);
-                //console.log(res);
-		
-			}
-			else if (document.getElementById('asset').value!="" && document.getElementById('service').value=="" && document.getElementById('type').value=="All"){
-                let response = await fetch("https://udv79465qa.execute-api.us-east-1.amazonaws.com/dev/pipeline?asset="+asset+"&type="+type);
-                let result= await response.text();
-                let items= await JSON.parse(result).body;
-                let item=JSON.parse(items);
-                if (item['msg']=="No pipelines found for these filters")
-                {
-                    var a='<p style="color:white;font-size:30px">'+"No pipelines found for these filters"+'</p>'
-                    $('div').html(a);
-                }
-                else{
-                
-               add(item)
-                }	
-			}
-            else if (document.getElementById('asset').value=="" && document.getElementById('service').value!="" && document.getElementById('type').value=="All"){
-                let response = await fetch("https://udv79465qa.execute-api.us-east-1.amazonaws.com/dev/pipeline?service="+service+"&type="+type);
-                let result= await response.text();
-                let items= await JSON.parse(result).body;
-                let item=JSON.parse(items);
-                if (item['msg']=="No pipelines found for these filters")
-                {
-                    var a='<p style="color:white;font-size:30px">'+"No pipelines found for these filters"+'</p>'
-                    $('div').html(a);
-                }
-                else{
-                
-               add(item)
-                }	
-			}
-            else if (document.getElementById('asset').value=="" && document.getElementById('service').value=="" && document.getElementById('type').value!="All"){
-                let response = await fetch("https://udv79465qa.execute-api.us-east-1.amazonaws.com/dev/pipeline?type="+type);
-                let result= await response.text();
-                let items= await JSON.parse(result).body;
-                let item=JSON.parse(items);
-                if (item['msg']=="No pipelines found for these filters")
-                {
-                    var a='<p style="color:white;font-size:30px">'+"No pipelines found for these filters"+'</p>'
-                    $('div').html(a);
-                }
-                else{
-                
-               add(item)
-                }	
-			}
-            else if (document.getElementById('asset').value!="" && document.getElementById('service').value!="" && document.getElementById('type').value=="All"){
-                let response = await fetch("https://udv79465qa.execute-api.us-east-1.amazonaws.com/dev/pipeline?asset="+asset+"&service="+service+"&type="+type);
-                let result= await response.text();
-                let items= await JSON.parse(result).body;
-                let item=JSON.parse(items);
-                if (item['msg']=="No pipelines found for these filters")
-                {
-                    var a='<p style="color:white;font-size:30px">'+"No pipelines found for these filters"+'</p>'
-                    $('div').html(a);
-                }
-                else{
-                
-               add(item)
-                }	
-			}
-            else if (document.getElementById('asset').value!="" && document.getElementById('service').value=="" && document.getElementById('type').value!="All"){
-                let response = await fetch("https://udv79465qa.execute-api.us-east-1.amazonaws.com/dev/pipeline?asset="+asset+"&type="+type);
-                let result= await response.text();
-                let items= await JSON.parse(result).body;
-                let item=JSON.parse(items);
-                if (item['msg']=="No pipelines found for these filters")
-                {
-                    var a='<p style="color:white;font-size:30px">'+"No pipelines found for these filters"+'</p>'
-                    $('div').html(a);
-                }
-                else{
-                
-               add(item)
-                }	
-			}
-            else if (document.getElementById('asset').value=="" && document.getElementById('service').value!="" && document.getElementById('type').value!="All"){
-                let response = await fetch("https://udv79465qa.execute-api.us-east-1.amazonaws.com/dev/pipeline?service="+service+"&type="+type);
-                let result= await response.text();
-                let items= await JSON.parse(result).body;
-                let item=JSON.parse(items);
-                if (item['msg']=="No pipelines found for these filters")
-                {
-                    var a='<p style="color:white;font-size:30px">'+"No pipelines found for these filters"+'</p>'
-                    $('div').html(a);
-                }
-                else{
-                
-               add(item)
-                }	
-			}
-            else{
-                let response = await fetch("https://udv79465qa.execute-api.us-east-1.amazonaws.com/dev/pipeline?asset="+asset+"&service="+service+"&type="+type);
-                let result= await response.text();
-                let items= await JSON.parse(result).body;
-                let item=JSON.parse(items);
-                if (item['msg']=="No pipelines found for these filters")
-                {
-                    var a='<p style="color:white;font-size:30px">'+"No pipelines found for these filters"+'</p>'
-                    $('div').html(a);
-                }
-                else{
-                
-               add(item)
-                }		
-            }
-            
-			
-		}
-		
-    </script>
 </head>
 <body style="background-color:#123C69;" onload="callAPI()">
     <form>
         <p style="text-align:center;font-size:20px;color:whitesmoke;margin:0"><strong>DASHBOARD</strong></p>
         <table style="margin-left:10px;" >
             <tr>
- <td style="color:whitesmoke;"><label for="value1">AssetId : </label></td>
+ <td style="color:whitesmoke;"><label for="value1">AssetId  </label></td>
  <td><input type="text" id="asset" name="asset"></td></tr>
      <br><tr>
- <td style="color:whitesmoke;"><label for="value2">ServiceName : </label></td>
+ <td style="color:whitesmoke;"><label for="value2">ServiceName  </label></td>
  <td><input type="text" id="service" name="service"></td></tr>
      <br><tr>
- <td style="color:whitesmoke;"><label for="key">PipeLine Type : </label></td>
+ <td style="color:whitesmoke;"><label for="key">PipeLine Type  </label></td>
  <td><select name="type" id="type">
        <option value="All">All</option>
        <option value="iac">iac</option>
        <option value="cumulus">cumulus</option>
-       <option value="change">dbchange</option>
-       <option value="deployment">s3-deployment</option>
+       <option value="dbchange">dbchange</option>
+       <option value="s3-deployment">s3-deployment</option>
  </select></td>
      </tr><br>
  <tr><td>&emsp; &emsp;&emsp;&emsp;&emsp;<button type="button" onclick="callAPI(document.getElementById('asset').value,document.getElementById('service').value,document.getElementById('type').value)" >Submit</button></td></tr>
@@ -282,6 +81,7 @@ $('div').html(table);
         <br>
         <!-- set button onClick method to call function we defined passing input values as parameters -->
     </form>
+    <area></area>
    <div ></div>
 </body>
 </html>
