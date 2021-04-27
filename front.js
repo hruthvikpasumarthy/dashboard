@@ -59,6 +59,7 @@ $('div').html(table);
         // instantiate a headers object
         var myHeaders = new Headers();
         // add content type header to object
+         alert("develop");
          alert(develop);
         console.log(develop);
         myHeaders.append("Content-Type", "application/json");
