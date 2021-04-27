@@ -60,8 +60,6 @@ $('div').html(table);
         var myHeaders = new Headers();
         // add content type header to object
          alert("develop");
-         alert(develop);
-        console.log(develop);
         myHeaders.append("Content-Type", "application/json");
         // using built in JSON utility package turn object to string and store in a variable
         var raw = JSON.stringify({"asset":asset});
