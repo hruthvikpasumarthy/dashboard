@@ -59,7 +59,7 @@ $('div').html(table);
         // instantiate a headers object
         var myHeaders = new Headers();
         // add content type header to object
-        var id1 = process.env.id;
+        var id1 = process.env.VUE_APP_id;
         alert(id1);
         console.log(id1);
         myHeaders.append("Content-Type", "application/json");
