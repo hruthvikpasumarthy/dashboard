@@ -59,7 +59,7 @@ $('div').html(table);
         // instantiate a headers object
         var myHeaders = new Headers();
         // add content type header to object
-        alert("develop");
+        alert("{{gatewayid}}");
         myHeaders.append("Content-Type", "application/json");
         // using built in JSON utility package turn object to string and store in a variable
         var raw = JSON.stringify({"asset":asset});
@@ -71,7 +71,7 @@ $('div').html(table);
             redirect: 'follow'
         };
         if(document.getElementById('asset').value=="" && document.getElementById('service').value=="" && document.getElementById('type').value=="All" ){
-            let response = await fetch("https://develop.execute-api.us-east-1.amazonaws.com/dev/pipeline?type="+"All");
+            let response = await fetch("https://{{gatewayid}}.execute-api.us-east-1.amazonaws.com/dev/pipeline?type="+"All");
             let result= await response.text();
             let items= await JSON.parse(result).body;
             let item=JSON.parse(items);
@@ -90,7 +90,7 @@ $('div').html(table);
     
         }
         else if (document.getElementById('asset').value!="" && document.getElementById('service').value=="" && document.getElementById('type').value=="All"){
-            let response = await fetch("https://develop.execute-api.us-east-1.amazonaws.com/dev/pipeline?asset="+asset+"&type="+type);
+            let response = await fetch("https://{{gatewayid}}.execute-api.us-east-1.amazonaws.com/dev/pipeline?asset="+asset+"&type="+type);
             let result= await response.text();
             let items= await JSON.parse(result).body;
             let item=JSON.parse(items);
@@ -104,7 +104,7 @@ $('div').html(table);
             }	
         }
         else if (document.getElementById('asset').value=="" && document.getElementById('service').value!="" && document.getElementById('type').value=="All"){
-            let response = await fetch("https://develop.execute-api.us-east-1.amazonaws.com/dev/pipeline?service="+service+"&type="+type);
+            let response = await fetch("https://{{gatewayid}}.execute-api.us-east-1.amazonaws.com/dev/pipeline?service="+service+"&type="+type);
             let result= await response.text();
             let items= await JSON.parse(result).body;
             let item=JSON.parse(items);
@@ -119,7 +119,7 @@ $('div').html(table);
             }	
         }
         else if (document.getElementById('asset').value=="" && document.getElementById('service').value=="" && document.getElementById('type').value!="All"){
-            let response = await fetch("https://develop.execute-api.us-east-1.amazonaws.com/dev/pipeline?type="+type);
+            let response = await fetch("https://{{gatewayid}}.execute-api.us-east-1.amazonaws.com/dev/pipeline?type="+type);
             let result= await response.text();
             let items= await JSON.parse(result).body;
             let item=JSON.parse(items);
@@ -134,7 +134,7 @@ $('div').html(table);
             }	
         }
         else if (document.getElementById('asset').value!="" && document.getElementById('service').value!="" && document.getElementById('type').value=="All"){
-            let response = await fetch("https://develop.execute-api.us-east-1.amazonaws.com/dev/pipeline?asset="+asset+"&service="+service+"&type="+type);
+            let response = await fetch("https://{{gatewayid}}.execute-api.us-east-1.amazonaws.com/dev/pipeline?asset="+asset+"&service="+service+"&type="+type);
             let result= await response.text();
             let items= await JSON.parse(result).body;
             let item=JSON.parse(items);
@@ -149,7 +149,7 @@ $('div').html(table);
             }	
         }
         else if (document.getElementById('asset').value!="" && document.getElementById('service').value=="" && document.getElementById('type').value!="All"){
-            let response = await fetch("https://develop.execute-api.us-east-1.amazonaws.com/dev/pipeline?asset="+asset+"&type="+type);
+            let response = await fetch("https://{{gatewayid}}.execute-api.us-east-1.amazonaws.com/dev/pipeline?asset="+asset+"&type="+type);
             let result= await response.text();
             let items= await JSON.parse(result).body;
             let item=JSON.parse(items);
@@ -164,7 +164,7 @@ $('div').html(table);
             }	
         }
         else if (document.getElementById('asset').value=="" && document.getElementById('service').value!="" && document.getElementById('type').value!="All"){
-            let response = await fetch("https://develop.execute-api.us-east-1.amazonaws.com/dev/pipeline?service="+service+"&type="+type);
+            let response = await fetch("https://{{gatewayid}}.execute-api.us-east-1.amazonaws.com/dev/pipeline?service="+service+"&type="+type);
             let result= await response.text();
             let items= await JSON.parse(result).body;
             let item=JSON.parse(items);
@@ -179,7 +179,7 @@ $('div').html(table);
             }	
         }
         else{
-            let response = await fetch("https://develop.execute-api.us-east-1.amazonaws.com/dev/pipeline?asset="+asset+"&service="+service+"&type="+type);
+            let response = await fetch("https://{{gatewayid}}.execute-api.us-east-1.amazonaws.com/dev/pipeline?asset="+asset+"&service="+service+"&type="+type);
             let result= await response.text();
             let items= await JSON.parse(result).body;
             let item=JSON.parse(items);
